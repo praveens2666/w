@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracking</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
+<script src="./script.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+</head>
+<body ng-controller="myController">
+    <h1>Attendance Tacking System</h1>
+ <div class="con">
+    <form ng-submit="saveStudent()"> 
+          <div class="container">
+        <input type="text" ng-model="student.name" placeholder="Enter your name" required>
+        <input type="text" ng-model="student.roll" placeholder="enter roll no" required>
+        <input type="date" ng-model="student.date" required>
+        <select ng-model="student.status">
+            <option value="present">present</option>
+            <option value="absent">absent</option>
+        </select>
+        <button>{{editmode ? "update" : "Add"}}</button>
+        <button type="button" ng-click="cancelStudent()" ng-if="editmode">cancel</button>
+    </div>
+    </form>
+</div>
+    <h2>
+        Status search
+    </h2>
+    <select ng-model="fstatus">
+        <option value="">All</option>
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+    </select>
+    <button ng-click="order='name'">Sort By Name</button>
+    <input type="text" ng-model="search">
+    <button ng-click="deleteAll()">Delete All</button>
+    <h2>All Students</h2>
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Date</th>
+                <th>Stauts</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="student-row" ng-repeat="a in attendanceList | filter :{status : fstatus} | orderBy : order | filter: search">
+                <td >{{a.name}}</td>
+                <td>{{a.roll}}</td>
+                <td>{{a.date}}</td>
+                <td>{{a.status}}</td>
+                <td>
+                    <button ng-click="editStudent(a)">Edit</button>
+                    <button id="table1" ng-click="deleteStudent(a._id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

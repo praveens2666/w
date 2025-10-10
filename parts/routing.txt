@@ -1,0 +1,35 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+var app = angular.module('WeatherApp', ['ngRoute']);
+
+app.config(function($routeProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'views/home.html',
+      controller: 'HomeCtrl'
+    })
+    .when('/weather', {
+      templateUrl: 'views/weather.html',
+      controller: 'WeatherCtrl'
+    })
+    .otherwise({
+      redirectTo: '/'
+    });
+});
+
+<body ng-app="WeatherApp">
+  <nav>
+    <a href="#!/">Home</a>
+    <a href="#!/weather">Weather</a>
+  </nav>
+
+  <div ng-view></div>
+</body>
+
+app.controller('HomeCtrl', function($scope) {
+  $scope.msg = "Welcome to Weather Home!";
+});
+
+app.controller('WeatherCtrl', function($scope) {
+  $scope.msg = "View live weather updates here.";
+});

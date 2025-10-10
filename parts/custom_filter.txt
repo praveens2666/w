@@ -1,0 +1,46 @@
+app.controller('MainCtrl', function($scope, $filter) {
+  var uppercase = $filter('uppercase');
+  $scope.name = uppercase('praveen');   // → "PRAVEEN"
+});
+
+app.filter('reverse', function() {
+  return function(input) {
+    if (!input) return '';
+    return input.split('').reverse().join('');
+  };
+});
+
+<li ng-repeat="product in products | orderBy:'price' | filter:'phone'">
+  {{ product.name }} — {{ product.price | currency }}
+</li>
+
+uppercase / lowercase
+{{ "hello world" | uppercase }}   → "HELLO WORLD"
+{{ "HELLO WORLD" | lowercase }}   → "hello world"
+
+currency
+{{ 2500 | currency }}            → "$2,500.00"
+{{ 2500 | currency:"₹" }}        → "₹2,500.00"
+
+date
+{{ today | date:"fullDate" }}       → "Thursday, October 9, 2025"
+{{ today | date:"short" }}          → "10/9/25, 9:00 PM"
+{{ today | date:"yyyy-MM-dd" }}     → "2025-10-09"
+
+number
+{{ 1234.5678 | number:2 }}   → "1,234.57"
+
+limit To
+{{ "AngularJS Filters" | limitTo:8 }}     → "AngularJ"
+{{ [1,2,3,4,5,6] | limitTo:3 }}           → [1,2,3]
+{{ [1,2,3,4,5,6] | limitTo:-2 }}          → [5,6]  // last two
+
+search
+<li ng-repeat="user in users | filter:'admin'">
+  {{ user.name }}
+</li>
+
+orderBy
+<li ng-repeat="user in users | orderBy:'name'">
+  {{ user.name }}
+</li>

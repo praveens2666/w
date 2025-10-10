@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Weather">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Api</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+      
+    
+    <div class="ctrl" ng-controller="WeatherController">
+
+        <input type="text" ng-model="city" placeholder="Enter City name"><br>
+        <button ng-click="getweather()">Get Weather</button>
+
+
+        <div class = "Weather" ng-if="weatherdata">
+            <h2>{{weatherdata.name}}</h2>
+            <h2>{{weatherdata.main.temp}}</h2>
+        </div>
+    </div>
+
+    <p ng-if="errormess">{{errormess}}</p>
+<style>
+    .ctrl{
+        text-align: center;
+        margin-top: 20%;
+    }
+    input{
+        padding: 10px;
+        width: 300px;
+    }
+    button{
+        padding: 10px;
+        width: 100px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: darkblue;
+    }
+    .Weather{
+        margin-top: 20px;
+    }
+    p{
+        color: red;
+        font-weight: bold;
+    }
+</style>
+<script>
+    var app = angular.module('Weather',[]);
+
+    app.controller('WeatherController',function($scope,$http){
+        $scope.getweather = function(){
+            var city=$scope.city;
+
+            var api = "793cd19c7f171fadc9634cb48313e29d";
+            var uri = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+api+"&units=metric";
+        
+
+        $http.get(uri).then(function(responce){
+            $scope.weatherdata = responce.data;
+            $scope.errormess = null;
+        },function(error){
+            $scope.errormess = "City not found";
+            $scope.weatherdata = null;
+        });
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+.weather
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    justify-content: center;
+}
+
+.in{
+    border : 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+}
+
+.button{
+       border : 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: lightslategrey;
+}
+
+h2,p{
+    text-align: center;
+}

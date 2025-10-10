@@ -1,0 +1,20 @@
+app.directive('weatherCard', function() {
+  return {
+    restrict: 'E',
+    scope: { city: '@' },
+    template: '<div><h3>{{city}}</h3><button ng-click="refresh()">Refresh</button></div>',
+    controller: function($scope) {
+      $scope.refresh = function() {
+        alert('Refreshing weather for ' + $scope.city);
+      };
+    }
+  };
+});
+
+app.directive('myDirective', function() {
+  return {
+    restrict: 'E',      // Element (E), Attribute (A), Class (C), Comment (M)
+    template: '<h3>Hello from custom directive!</h3>'
+  };
+});
+

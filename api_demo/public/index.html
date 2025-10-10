@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="../server.js"></script>
+</head>
+<body>
+    <div class="weather" ng-controller="weathercontroller">
+        <input class="in" type="text" placeholder="Enter your city" ng-model="city">
+        <br/>
+        <input class="button" type="button" value="getWeather" ng-click="getweather()">
+        <div ng-if="weather.name">
+            <h2>{{weather.name}}</h2>
+            <h2>Temp : {{weather.main.temp}}</h2>
+            <h2>Desc : {{weather.weather[0].description}}</h2>
+            <p>{{weather}}</p>
+        </div>
+    </div>
+</body>
+</html>

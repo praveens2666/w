@@ -1,0 +1,41 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
+
+var app = angular.module('WeatherApp', ['ngRoute', 'ngAnimate']);
+
+Fade In/Out Animation
+<div ng-if="showBox" class="fade-box">Hello!</div>
+<button ng-click="showBox = !showBox">Toggle Box</button>
+
+.fade-box.ng-enter {
+  opacity: 0;
+}
+.fade-box.ng-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.fade-box.ng-leave {
+  opacity: 1;
+}
+.fade-box.ng-leave-active {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+ng-repeat Animation
+
+<ul>
+  <li ng-repeat="item in items" class="list-item">{{ item }}</li>
+</ul>
+
+.list-item.ng-enter {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+.list-item.ng-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.4s ease;
+}
+
+

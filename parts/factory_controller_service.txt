@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="DemoApp">
+<head>
+  <title>AngularJS Service/Factory Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+
+  <h2>{{ app }}</h2>
+  <p>User: {{ user }}</p>
+  <p>Square of 5: {{ square }}</p>
+  <p>Cube of 3: {{ cube }}</p>
+
+</body>
+</html>
+
+var app = angular.module('DemoApp', []);
+
+// ---------------- SERVICE ----------------
+app.service('UserService', function() {
+  this.name = "Praveen";
+  this.getUser = function() {
+    return this.name;
+  };
+});
+
+// ---------------- FACTORY ----------------
+app.factory('MathFactory', function() {
+  let factory = {};
+  factory.square = function(x) {
+    return x * x;
+  };
+  factory.cube = function(x) {
+    return x * x * x;
+  };
+  return factory;
+});
+
+// ---------------- VALUE ----------------
+app.value('AppName', 'AngularJS DI Example');
+
+// ---------------- CONTROLLER ----------------
+app.controller('MainCtrl', function($scope, UserService, MathFactory, AppName) {
+  $scope.user = UserService.getUser();
+  $scope.app = AppName;
+  $scope.square = MathFactory.square(5);
+  $scope.cube = MathFactory.cube(3);
+});
