@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="student.xsl"?>
+<students>
+  <student>
+    <fullName>John Doe</fullName>
+    <year>2</year>
+    <department>CSE</department>
+    <semester>4</semester>
+    <previousCGPA>7.8</previousCGPA>
+    <currentSGPA>8.2</currentSGPA>
+  </student>
+  <student>
+    <fullName>Jane Smith</fullName>
+    <year>3</year>
+    <department>ECE</department>
+    <semester>6</semester>
+    <previousCGPA>8.1</previousCGPA>
+    <currentSGPA>8.5</currentSGPA>
+  </student>
+  <student>
+    <fullName>Jane Smith</fullName>
+    <year>3</year>
+    <department>ECE</department>
+    <semester>6</semester>
+    <previousCGPA>8.1</previousCGPA>
+    <currentSGPA>8.5</currentSGPA>
+  </student>
+</students>
