@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="ticketApp">
+<head>
+<meta charset="utf-8">
+<title>Ticket Booking App</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="app.js"></script>
+<style>
+    body { font-family: Arial; text-align:center; margin-top:40px; }
+    .seat { display:inline-block; width:50px; height:50px; margin:5px; line-height:50px; cursor:pointer; border-radius:5px; }
+    .free { background:#7fff7f; } /* green */
+    .booked { background:#ff7f7f; cursor:not-allowed; } /* red */
+    .selected { background:#007BFF; color:white; } /* blue */
+    button { margin-top:20px; padding:10px 20px; font-size:16px; cursor:pointer; }
+</style>
+</head>
+<body ng-controller="MainCtrl">
+
+<h2>Ticket Booking</h2>
+
+<div>
+    <div ng-repeat="seat in seats"
+         ng-click="toggleSeat(seat)"
+         class="seat"
+         ng-class="{
+            'booked': seat.booked,
+            'selected': !seat.booked && selectedSeats.indexOf(seat.seatNumber) !== -1,
+            'free': !seat.booked && selectedSeats.indexOf(seat.seatNumber) === -1
+         }">
+        {{seat.seatNumber}}
+    </div>
+</div>
+
+<br>
+<button ng-click="bookSeats()">Book Selected Seats</button>
+
+</body>
+</html>
