@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="quizApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Quiz</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+    .quiz-container { max-width: 500px; margin: auto; background: #fff; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { margin-bottom: 10px; }
+    .option { margin: 5px 0; }
+    button { margin-top: 10px; padding: 8px 12px; cursor: pointer; }
+    .timer-bar { height: 10px; background: #4caf50; margin: 10px 0; border-radius: 5px; transition: width 1s linear; }
+  </style>
+</head>
+<body ng-controller="QuizController">
+
+<div class="quiz-container" ng-if="currentQuestionIndex < questions.length">
+  <h2>Question {{currentQuestionIndex + 1}} of {{questions.length}}</h2>
+  <p>{{questions[currentQuestionIndex].question}}</p>
+
+  <div class="option" ng-repeat="opt in questions[currentQuestionIndex].options">
+    <input type="radio" ng-model="selectedAnswer" ng-value="opt"> {{opt}}
+  </div>
+
+  <div class="timer-bar" style="width: {{timer*10}}%"></div>
+  <p>Time left: {{timer}} seconds</p>
+  <button ng-click="submitAnswer()">Submit</button>
+</div>
+
+<div class="quiz-container" ng-if="currentQuestionIndex >= questions.length">
+  <h2>Quiz Finished!</h2>
+  <p>Your Score: {{score}} / {{questions.length}}</p>
+</div>
+
+<script>
+  angular.module('quizApp', [])
+    .controller('QuizController', ['$scope', '$interval', function($scope, $interval) {
+
+      $scope.questions = [
+        { question: 'What is 2 + 2?', options: ['2','3','4','5'], correctAnswer: "4" },
+        { question: 'Capital of France?', options: ['Berlin','Paris','Rome','Madrid'], correctAnswer: "Paris" },
+        { question: 'Which is a JS framework?', options: ['Angular','Laravel','Django','Rails'], correctAnswer: "Angular" }
+      ];
+
+      $scope.currentQuestionIndex = 0;
+      $scope.selectedAnswer = '';
+      $scope.score = 0;
+      $scope.timer = 10;
+
+      let intervalPromise;
+
+      const startTimer = () => {
+        $scope.timer = 10;
+        intervalPromise = $interval(() => {
+          $scope.timer--;
+          if ($scope.timer <= 0) {
+            $scope.$applyAsync(() => $scope.submitAnswer());
+          }
+        }, 1000);
+      };
+
+      $scope.submitAnswer = () => {
+        if(intervalPromise) $interval.cancel(intervalPromise);
+
+        let currentQ = $scope.questions[$scope.currentQuestionIndex];
+        if ($scope.selectedAnswer && $scope.selectedAnswer === currentQ.correctAnswer) {
+          $scope.score++;
+        }
+        
+        $scope.selectedAnswer = '';
+        $scope.currentQuestionIndex++;
+
+        if ($scope.currentQuestionIndex < $scope.questions.length) {
+          startTimer();
+        }
+      };
+
+      // Start first question timer
+      startTimer();
+
+    }]);
+</script>
+
+</body>
+</html>
